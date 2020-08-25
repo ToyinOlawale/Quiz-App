@@ -3,8 +3,8 @@
 body {
   margin : 0;
   font-size : 16px;
-  background-color: aqua;
-  font-family: sans-serif ;
+  background-color: rgb(128, 128, 128);
+  font-family: 'Roboto Slab', serif;
   font-weight: 400;
 }
 
@@ -17,12 +17,21 @@ body {
 
 .custom-box {
   max-width: 700px;
-  background-color:white;
+  background-color:  whitesmoke;
   margin : 40px auto;
   padding: 30px ;
   border-radius: 10px;
+  animation: fadeInRight 1s ease ;
 }
-
+@keyframes fadeInRight{
+  0%{
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+  }
+};
 .custom-box::before,
 .custom-box::after{
   content:'';
@@ -34,19 +43,46 @@ body {
   display:none
 }
 
-.home-box h3 {
-  font-size: 18px;
-  color:blueviolet;
+.home-box h1{
+  color: darkcyan;
+  padding-bottom: 10px;
+  font-family: 'Oleo Script', cursive;
+  font-size: 40px;
+  font-weight: 400;
+
+}
+
+.home-box img {
+  height: 50%;
+  width : 50%;  
+  margin-left: 20%;
+  margin-bottom: 20px;
+}
+.home-box h3, #message {
+  font-size: 25px;
+  color: rgb(56, 75, 22);
   margin-bottom: 15px;
   line-height: 25px ;
   font-weight: 500;
+  font-family: 'Abril Fatface', cursive;
+}
+
+#message {
+  font-size: 25px;
+  color: rgb(212, 112, 30);
+  margin-bottom: 15px;
+  margin-left: 50px;
+  line-height: 25px ;
+  font-weight: 500;
+  font-family: 'Abril Fatface', cursive;
 }
 .home-box p {
-  font-size: 16px;
-  color:rgb(17, 149, 167);
+  font-size: 20px;
+  color:#076158;
   margin-bottom: 10px;
   line-height: 22px ;
-  font-weight: 400;
+  font-weight: 100;
+  font-family: 'Abril Fatface', cursive;
 }
 
 .home-box p span { 
@@ -59,24 +95,25 @@ body {
 
 .btn {
   padding: 15px 45px;
-  background-color: aqua;
-  color: blueviolet;
+  background-color: #009688;
+  color: whitesmoke;
   border: none;
-  border-radius : 5px;
+  border-radius : 10px;
   font-family: sans-serif;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 400;
   cursor: pointer;
   display: inline-block;
 }
 
-.quiz-box .question-number,
+/* .quiz-box .question-number,
 .quiz-box .question-text,
 .quiz-box .option-container,
 .quiz-box .next-question-btn,
 .quiz-box .answers-indicator {
-  width: 100% ;
+   width: 100% ;
   float: left; 
-}
+}  */
 
 .quiz-box .question-number{
   font-size: 18px;
@@ -105,6 +142,72 @@ body {
   margin-bottom: 10px;
   cursor: pointer;
   text-transform: capitalize;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+  /* next two lines style for correct option */
+  position: relative;
+  overflow: hidden;
+}
+/* for the animation */
+@keyframes fadeIn{
+   0%{
+     opacity:0;
+   }
+   100% {
+     opacity :1;
+   }
+};
+
+/* to turn corrrect option green */
+
+.quiz-box .option-container .option.correct{
+  color: #ffffff;
+}
+.quiz-box .option-container .option.correct::before{
+  content:'';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(11, 161, 11) ;
+  z-index: -1; /*so the green color will not cover the answer */
+  animation: slideInLeft .2s ease forwards;
+}
+
+
+.quiz-box .option-container .option.correct{
+  color: #ffffff;
+}
+
+/* to turn wrong option red */
+.quiz-box .option-container .option.wrong::before{
+  content:'';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(197, 15, 15) ;
+  z-index: -1; /*so the red color will not cover the answer */
+  animation: slideInLeft .2s ease forwards;
+}
+
+@keyframes slideInLeft {
+  0%{
+    transform : translateX(-100%)
+  }
+  100%{
+    transform: translateX(0%);
+  }
+}
+/* for already answered question */
+.quiz-box .option-container .option.already-answered {
+ pointer-events: none;
+}
+
+.quiz-box .option-container .option.wrong{
+  color: #ffffff;
 }
 
 .quiz-box .btn {
@@ -123,6 +226,21 @@ body {
   margin-top: 15px;
 }
 
+/* to style answerindicator after clicking */
+.quiz-box .answers-indicator div.correct{
+ background-color:rgb(11, 161, 11) ;
+ background-size: 50%;
+ background-repeat: no-repeat;
+ background-position: center;
+};
+.quiz-box .answers-indicator div.wrong{
+  background-color: rgb(197, 15, 15) ;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+ };
+
+
 /* styling result box */
 
 .result-box {
@@ -135,7 +253,7 @@ body {
 .result-box h1{
   font-size: 36px;
   line-height: 42px;
-  color: aqua;
+  color: #009688;
 }
 .result-box table{
   width: 100%;
@@ -154,4 +272,13 @@ body {
 }
 .result-box .btn{
   margin-right: 20px;
+}
+
+@media (max-width: 767px){
+ .result-box .btn{
+   margin-bottom: 15px;
+ }
+ body {
+   padding :15px;
+ }
 }
